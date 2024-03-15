@@ -1,4 +1,4 @@
-from flask import Flask, Response, request
+# from flask import Flask, Response, request
 import pandas as pd
 import boto3
 import subprocess
@@ -7,7 +7,7 @@ sqs = boto3.client('sqs', 'us-east-1')
 request_queue_url = 'https://sqs.us-east-1.amazonaws.com/654654147126/1227629236-req-queue'
 response_queue_url = 'https://sqs.us-east-1.amazonaws.com/654654147126/1227629236-resp-queue'
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 def recieve_request():
     # print("HI")
@@ -28,4 +28,4 @@ def recieve_request():
 
 if __name__ == "__main__":
     recieve_request()
-    app.run(debug=True, host="0.0.0.0", port="4000")
+    # app.run(debug=True, host="0.0.0.0", port="4000")
