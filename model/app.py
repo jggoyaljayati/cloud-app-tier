@@ -12,7 +12,7 @@ response_queue_url = 'https://sqs.us-east-1.amazonaws.com/654654147126/122762923
 def recieve_request():
     # print("HI")
     while (True):
-        response = sqs.receive_message(QueueUrl=request_queue_url,MaxNumberOfMessages=1,WaitTimeSeconds=10,VisibilityTimeout=5,MessageAttributeNames=['All'])
+        response = sqs.receive_message(QueueUrl=request_queue_url,MaxNumberOfMessages=1,WaitTimeSeconds=10,MessageAttributeNames=['All'])
         messages = response.get('Messages', [])
         if messages:
             for message in messages:
