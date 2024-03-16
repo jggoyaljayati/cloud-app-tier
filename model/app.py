@@ -19,11 +19,11 @@ def recieve_request():
             for message in messages:
                 print(message['Body'])
                 request_id = message.get('MessageAttributes', {}).get('RequestId', {}).get('StringValue')
-                result = subprocess.run(["python3", "face_recognition.py", "../face_images_1000/" + message['Body']], capture_output=True, text = True).stdout.strip("\n")
+                # result = subprocess.run(["python3", "face_recognition.py", "../face_images_1000/" + message['Body']], capture_output=True, text = True).stdout.strip("\n")
                 # result = result.stdout
-                # image_path = "../face_images_1000/" + message['Body']
-                # command = f'python3 "face_recognition.py" "{image_path}"'
-                # result = os.popen(command).read()
+                image_path = "../face_images_1000/" + message['Body']
+                command = f'python3 "face_recognition.py" "{image_path}"'
+                result = os.popen(command).read()
                 print(result)
                 response = sqs.delete_message(QueueUrl=request_queue_url,ReceiptHandle=message['ReceiptHandle'])
                 response = sqs.send_message(QueueUrl=response_queue_url,MessageBody=(("{}:{}").format(message['Body'][:-4], result)), MessageAttributes={'RequestId': {'StringValue': request_id, 'DataType': 'String'}})
